@@ -14,14 +14,20 @@ public class MoodAnalyserMain {
         this.message = message;
     }
 
-    public String analyseMood() {
+    public String analyseMood() throws MoodAnalysisException {
         try {
-            if (this.message.contains("Sad"))
+            if (message.contains("Sad"))
                 return "SAD";
             else
                 return "HAPPY";
-        } catch (NullPointerException e) {
-            return "HAPPY";
+        }
+        catch (Exception e) {
+            if (message == null)
+                throw new MoodAnalysisException("Please provide valid mood, dont provide null in arguments",
+                        MoodAnalysisException.Exception_Type.NULL);
+            else
+                throw new MoodAnalysisException("Please provide valid mood, dont keep empty in arguments",
+                        MoodAnalysisException.Exception_Type.EMPTY);
         }
     }
 }
